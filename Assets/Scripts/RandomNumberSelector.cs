@@ -6,18 +6,10 @@ public class RandomNumberSelector : MonoBehaviour
     public int maxValue = 100;
     public int selectedNumber;
 
-    void SelectRandomNumber()
-    {
-        selectedNumber = Random.Range(minValue, maxValue);
-    }
+    
+    // select random number between min and max value
+    // store selected number
 
-    void Start()
-    {
-        SelectRandomNumber(); // how would it then repeat each game session?
-    }
-
-    void Update()
-    {
-        
-    }
+    public void SelectRandomNumber(){}
+    
 }

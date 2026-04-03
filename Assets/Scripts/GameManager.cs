@@ -1,74 +1,37 @@
 using UnityEngine;
 
-public enum GameState
-{
-    None,
-    Playing,
-    Success,
-    GameOver
-}
-
 public class GameManager : MonoBehaviour
 {
- 
     public GameManager Instance { get; private set; }
-
     public GameState gameState;
-    public int guessNumberValue;
+    public RandomNumberSelector randomNumberSelector;
     public int randomNumberValue;
     public int possibleAttempts = 5;
 
-    public KeyInputManager keyInputManager;
+    public CardSlots cardSlots;
 
-    void Awake()
-    {
         // singleton pattern implementation
         // set game state to none
         // avoid null exceptions
-
-        if (Instance == null)
-        {
-            Instance = this;
-            gameState = GameState.None;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void StartGame()
-    {
-        // set game state to playing
-        gameState = GameState.Playing;
-
-   
-    }
-
-    void GameOver()
-    {
-        // set game state to game over
-        if (possibleAttempts <= 0)
-        {
-            gameState = GameState.GameOver;
-        }
-        
-    }
-
-    void NumberGuessed()
-    {
-        // set game state to success
-        if (guessNumberValue == randomNumberValue)
-        {
-            gameState = GameState.Success;
-        }
-    }
-
     
+        // reset game state to playing for new game session
 
-    void Update()
-    {
-        // keyInputManager.HandleInput();
-    }
+        // get random number value from random number selector
+
+        // on every guess, reduce possible attempts by 1
+
+        // get combined guess value from both card slots
+
+        // compare combined guess value with random number value, if correct win
+
+        // if attempts run out, game over
+
+    public void GameOver(){}
+    public void GetRandomNumberValue(){}
+    public void GetCombinedGuessValue(){}
+    public void CheckGuess(){}
+    public void ReduceAttempts(){}
+    public void NewGame(){}    
+
+ 
 }
