@@ -1,10 +1,25 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public interface IDraggable
+// interface for draggable objects
+// cards will implement this to allow dragging and dropping into card slots
+public interface IBeginDragHandler : IEventSystemHandler
 {
-    // interface for draggable objects
-    // cards will implement this to allow dragging and dropping into card slots
-    void OnDrag();
-    void OnDrop();
-    
+    void OnBeginDrag(PointerEventData eventData);
+
+}
+
+public interface IDragHandler : IEventSystemHandler
+{
+    void OnDrag(PointerEventData eventData);
+}
+
+public interface IEndDragHandler : IEventSystemHandler
+{
+    void OnEndDrag(PointerEventData eventData);
+}
+
+public interface IDropHandler : IEventSystemHandler
+{
+    void OnDrop(PointerEventData eventData);
 }

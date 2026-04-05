@@ -14,5 +14,14 @@ public class CardSlots : MonoBehaviour
     // store combined guess value for comparison with random number value in game manager
     // drop area logic for cards
 
-    public void GetCombinedGuessValue(){}
+    public void GetCombinedGuessValue()
+    {
+        cardSlot1.GetGuessCardValue();
+        cardSlot2.GetGuessCardValue();
+        guessCardValue1 = cardSlot1.guessCardValue;
+        guessCardValue2 = cardSlot2.guessCardValue;
+        combinedGuessValue = guessCardValue1 + guessCardValue2;
+    }
 }
+  
+ 
