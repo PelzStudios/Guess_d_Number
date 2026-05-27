@@ -1,34 +1,33 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class CardSlot : MonoBehaviour, IDropHandler
+/// <summary>
+/// Retreives value from card in slot and stores it.
+/// </summary>
+
+public class CardSlot : MonoBehaviour
 {
-    private Card card; // supposed to be the card dropped into the slot
+    public Card card; 
+    public bool isOccupied;
 
-    public int guessCardValue;
+    public string guessCardValue;  // string value from card
 
     // get guess card value from each card
     // store guess card value
 
-    public void GetGuessCardValue()
+   void Update()
+    {
+        if (isOccupied == true)
+        {
+            card = GetComponentInChildren<Card>();
+            GetGuessCardValue();
+        }
+    }
+
+    public void GetGuessCardValue()  // get the value from card
     {
         if (card != null)
         {
-            card.GetCardValue();
-            guessCardValue = card.cardValue;
+           guessCardValue = card.cardValue;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Card"))
-        {
-            card = other.gameObject.GetComponent<Card>();
-        }
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        
     }
 }

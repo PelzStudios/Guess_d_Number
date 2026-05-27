@@ -1,32 +1,28 @@
+using System.Collections;
+// using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
+
+/// <summary>
+/// Central hub for number guessing logic and game states flow
+/// </summary>
 
 public class GameManager : MonoBehaviour
 {
-    // singleton pattern implementation
-    // set game state to none
-    // avoid null exceptions
-    
-    // reset game state to playing for new game session
-
-    // get random number value from random number selector
-
-    // on every guess, reduce possible attempts by 1
-
-    // get combined guess value from both card slots
-
-    // compare combined guess value with random number value, if correct win
-
-    // if attempts run out, game over
-
     public GameManager Instance { get; private set; }
-    public GameState gameState;
-    private RandomNumberSelector randomNumberSelector;
-    public int randomNumberValue;
-    private int guessValue;
-    public int possibleAttempts = 5;
     
-    public CardSlots cardSlots;
+    public GameState gameState;
+    public Stage cardSlots;
+    public int randomNumberValue;  // number to guess (opponent)
+    public int possibleAttempts = 7;
+    public int currentStreak = 0;
+    public int bestStreak = 0;
+    public string hint;
+    private CardManager cardManager;
+
     private UIManager uiManager;
+    private int guessValue;
+
 
     void Awake()
     {
@@ -36,25 +32,45 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        gameState = GameState.Playing;
-    }
-    
-    public void GetRandomNumberValue()
-    {
-        randomNumberValue = randomNumberSelector.selectedNumber;
+        uiManager = FindFirstObjectByType<UIManager>();
+        cardManager = FindFirstObjectByType<CardManager>();
+
+        LoadBestStreakData();
+        uiManager.RefreshUI();
+
     }
 
-    public void GetCombinedGuessValue()
+    public void GetRandomNumberValue()  // generate random number within 1 and 100 for player to guess
     {
-        guessValue = cardSlots.combinedGuessValue;
+        randomNumberValue = Random.Range(0, 100);
+        Debug.Log("Selecting random number between " + 0 + " and " + 100 + " " + "Random Number is: " + randomNumberValue);
+    }
+
+    public void GetCombinedGuessValue()  // get player's guess value
+    {
+        guessValue = cardSlots.GuessValueInt;
     }
 
     public void CheckGuess()
     {
-        if (randomNumberValue == guessValue)
+        foreach (Transform slot in cardSlots.transform)
         {
-            WinGame();
+            if (slot.GetComponent<CardSlot>().isOccupied == false) return;
         }
+        
+        GetCombinedGuessValue();
+        
+        if (randomNumberValue == guessValue) 
+        {
+            StartCoroutine(WinSequence()); 
+            return;
+        }
+
+        ReduceAttempts();
+        
+        ShowHint();
+
+        uiManager.RefreshUI();
     }
 
     public void ReduceAttempts()
@@ -67,22 +83,96 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void NewGame()
+
+    public void GoHome()
     {
-        gameState = GameState.Playing;
-        possibleAttempts = 5;
-        uiManager.ShowGamePanel();
-        GetRandomNumberValue();
-    }    
-    public void WinGame()
-    {
-        gameState = GameState.Win;
-        uiManager.ShowWinPanel();
+        gameState = GameState.Home;
+        LoadBestStreakData();
+        uiManager.RefreshUI();
+        uiManager.ShowHomePanel();
     }
+
+    public void NewGame()
+    {   
+        gameState = GameState.Playing;
+        ResetGameData();
+        GetRandomNumberValue();
+        uiManager.ShowGamePanel();
+        uiManager.RefreshUI();
+    }  
+
 
     public void GameOver()
     {
         gameState = GameState.GameOver;
         uiManager.ShowGameOverPanel();
+        currentStreak = 0;
+    }
+
+    public void ResetGameData()
+    {
+        possibleAttempts = 7;
+        cardManager.ResetCardSlots();
+        hint = "";
+    }
+
+    private IEnumerator WinSequence()
+    {
+        gameState = GameState.Win;
+
+        currentStreak++;
+
+        if (currentStreak > bestStreak)
+        {
+            bestStreak = currentStreak;
+            PlayerPrefs.SetInt("Best Streak", bestStreak);
+            PlayerPrefs.Save();
+        }
+
+        uiManager.UpdateRandomNumberText();
+
+        yield return new WaitForSeconds(2f);
+        uiManager.ShowWinPanel();
+    }
+    
+    public void ShowHint()
+    {
+        if (randomNumberValue < guessValue)
+        {
+            uiManager.StartCoroutine(HintDownArrowSequence());
+        } 
+        
+        if (randomNumberValue > guessValue)
+        {
+            uiManager.StartCoroutine(HintUpArrowSequence());
+        } 
+    }
+
+    private IEnumerator HintUpArrowSequence()
+    {
+        uiManager.hintArrowUp.color = Color.green;
+        hint = "Go Higher!";
+
+        yield return new WaitForSeconds(2f);
+
+        uiManager.hintArrowUp.color = Color.white;
+        uiManager.hintText.text = "";
+
+    }
+
+    private IEnumerator HintDownArrowSequence()
+    {
+        uiManager.hintArrowDown.color = Color.green;
+        hint = "Go Lower!";
+
+        yield return new WaitForSeconds(2f);
+
+        uiManager.hintArrowDown.color = Color.white;
+        uiManager.hintText.text = "";
+    }
+
+    public void LoadBestStreakData()
+    {
+        bestStreak = PlayerPrefs.GetInt("Best Streak", 0);
     }
 }

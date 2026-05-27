@@ -1,61 +1,43 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+/// <summary>
+/// Handles indiviual card behaviour.
+/// Holds card value and detects card selection
+/// </summary>
+
+public class Card : MonoBehaviour
 {
     // get card value from card and store it
-    // Drag and drop functionality
+    
+    public int cardNumber;
+    public string cardValue;
 
-    [Header("Card Info")]
-    public CardDeck cardNumber;
-    public int cardValue;
+    public bool isDuplicate;  // ghost card
 
-    [Header("Drag and Drop")]
-    private CanvasGroup canvasGroup;
-    private RectTransform rectTransform;
-    private Canvas canvas;
-    private Vector3 startPosition;
-    private bool isDroppedInSlot = false;
+    private CardManager cardManager;
     
     void Awake()
     {
-        startPosition = rectTransform.anchoredPosition;
-        isDroppedInSlot = false;
-
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        cardManager = FindFirstObjectByType<CardManager>();
+    }
+    public void GetCardValue()  // get card value as string and store it
+    {
+        Debug.Log("Getting card value for " + cardNumber);
+        cardValue = cardNumber.ToString(); 
     }
 
-
-    public void OnBeginDrag(PointerEventData eventData)
+    public void SelectCard()
     {
-        canvasGroup.alpha = 0.6f; 
-        canvasGroup.blocksRaycasts = false;
-        transform.SetAsLastSibling();
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-       rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
-
-        if (!isDroppedInSlot)
+        if (isDuplicate)  // if the card tapped is the duplicate in the slot, destroy it
         {
-            rectTransform.anchoredPosition = startPosition;
+            transform.parent.GetComponent<CardSlot>().isOccupied = false;
+            Destroy(gameObject);
         }
+        else  // if tapped card is original, trigger card select
+        {
+            cardManager.cardObject = gameObject;  // set selected card as active card in card manager
+            cardManager.HandleCardSelected(this);
+        }
+        
     }
-    
-    
-    public void GetCardValue()
-    {
-        cardValue = (int)cardNumber;  // convert enum value to int
-    }
-
 }
