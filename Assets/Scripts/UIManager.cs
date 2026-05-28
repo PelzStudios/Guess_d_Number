@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAttemptsLeftText()
     {
-        attemptsLeftText.text = $"Attempts Left: {gameManager.possibleAttempts}";
+        attemptsLeftText.text = $"{gameManager.possibleAttempts}/7";
     }
 
     public void RefreshUI()

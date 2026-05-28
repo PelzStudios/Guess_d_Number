@@ -1,7 +1,6 @@
 using System.Collections;
-// using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 /// <summary>
 /// Central hub for number guessing logic and game states flow

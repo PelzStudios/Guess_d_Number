@@ -10,9 +10,6 @@ public class CardManager : MonoBehaviour
     public GameObject cardObject;  // active card selected
     private Stage cardSlots;
 
-    public RectTransform cardSlot1;
-    public RectTransform cardSlot2;
-
     void Awake()
     {
         cardSlots = FindFirstObjectByType<Stage>();

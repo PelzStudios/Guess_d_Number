@@ -11,8 +11,8 @@ public class Card : MonoBehaviour
     
     public int cardNumber;
     public string cardValue;
-
     public bool isDuplicate;  // ghost card
+    // public RectTransform originalPosition;
 
     private CardManager cardManager;
     
@@ -22,7 +22,6 @@ public class Card : MonoBehaviour
     }
     public void GetCardValue()  // get card value as string and store it
     {
-        Debug.Log("Getting card value for " + cardNumber);
         cardValue = cardNumber.ToString(); 
     }
 
