@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    public int cardOccupiedIncrement;
     public CardSlot cardSlot1;
     public CardSlot cardSlot2;
 
@@ -21,6 +20,16 @@ public class Stage : MonoBehaviour
     {
         GetCombinedGuessValue();
     }
+
+    // void OnEnable()
+    // {
+    //     GameEvents.OnCardEntered += GetCombinedGuessValue;
+    // }
+
+    // void OnDisable()
+    // {
+    //     GameEvents.OnCardEntered -= GetCombinedGuessValue;
+    // }
 
     public void GetCombinedGuessValue()  // combine both values from each slot into a single double digit value
     {

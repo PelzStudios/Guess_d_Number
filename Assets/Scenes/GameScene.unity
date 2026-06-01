@@ -1751,7 +1751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de78656d7d9308446a17d4c5ca8107c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardSlots
-  cardOccupiedIncrement: 0
   cardSlot1: {fileID: 545420382}
   cardSlot2: {fileID: 661845289}
   guessCardValue1: 
@@ -1791,10 +1790,10 @@ RectTransform:
   - {fileID: 985810627}
   m_Father: {fileID: 1219113287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.36999512, y: 464.57}
-  m_SizeDelta: {x: -0.7399, y: 81.919}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -41.399994}
+  m_SizeDelta: {x: 0.000061035, y: 81.919}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356742869
 MonoBehaviour:
@@ -2291,6 +2290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 0
   cardValue: 0
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 383549316}
 --- !u!1 &491214081
@@ -3055,6 +3055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 5
   cardValue: 5
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 670279719}
 --- !u!114 &670279721
@@ -3240,6 +3241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 6
   cardValue: 6
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 673952570}
 --- !u!114 &673952574
@@ -3844,6 +3846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 3
   cardValue: 3
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 730128371}
 --- !u!1 &737630436
@@ -4051,6 +4054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 7
   cardValue: 7
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 739627431}
 --- !u!114 &739627435
@@ -4888,6 +4892,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   cardObject: {fileID: 0}
+  cardSlot1: {fileID: 0}
+  cardSlot2: {fileID: 0}
+  cardInstance: {fileID: 0}
+  cardInitialPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1143074217
 Transform:
   m_ObjectHideFlags: 0
@@ -5030,6 +5038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 8
   cardValue: 8
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1181119881}
 --- !u!114 &1181119885
@@ -6201,6 +6210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 4
   cardValue: 4
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1497723929}
 --- !u!114 &1497723933
@@ -7049,6 +7059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 2
   cardValue: 2
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1581450177}
 --- !u!114 &1581450179
@@ -7427,6 +7438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 1
   cardValue: 1
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1691038391}
 --- !u!1 &1732213378
@@ -7465,7 +7477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 301.1}
+  m_AnchoredPosition: {x: 0, y: 283}
   m_SizeDelta: {x: 272.5285, y: 401.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1732213380
@@ -7482,6 +7494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 0
   cardValue: 
+  cardDeck: {fileID: 0}
   isDuplicate: 0
   originalPosition: {fileID: 0}
 --- !u!114 &1732213381
@@ -7786,6 +7799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 9
   cardValue: 9
+  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1817112204}
 --- !u!114 &1817112208

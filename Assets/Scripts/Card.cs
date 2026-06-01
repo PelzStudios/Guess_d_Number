@@ -6,13 +6,13 @@ using UnityEngine;
 /// </summary>
 
 public class Card : MonoBehaviour
-{
-    // get card value from card and store it
-    
+{   
     public int cardNumber;
     public string cardValue;
+    public GameObject cardDeck;
     public bool isDuplicate;  // ghost card
-    // public RectTransform originalPosition;
+
+    public Transform originalPosition;
 
     private CardManager cardManager;
     
@@ -20,10 +20,16 @@ public class Card : MonoBehaviour
     {
         cardManager = FindFirstObjectByType<CardManager>();
     }
+
     public void GetCardValue()  // get card value as string and store it
     {
         cardValue = cardNumber.ToString(); 
     }
+
+/// <summary>
+/// Function triggered when a card is selected
+/// - Initiates logic based on type of card selected (normal / duplicate)
+/// </summary>
 
     public void SelectCard()
     {
@@ -35,8 +41,7 @@ public class Card : MonoBehaviour
         else  // if tapped card is original, trigger card select
         {
             cardManager.cardObject = gameObject;  // set selected card as active card in card manager
-            cardManager.HandleCardSelected(this);
+            cardManager.HandleCardSelected();
         }
-        
     }
 }

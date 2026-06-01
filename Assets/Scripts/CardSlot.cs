@@ -7,24 +7,25 @@ using UnityEngine;
 public class CardSlot : MonoBehaviour
 {
     public Card card; 
-    public bool isOccupied;
+    public bool isOccupied = false;
 
     public string guessCardValue;  // string value from card
 
-    // get guess card value from each card
-    // store guess card value
-
-   void Update()
+    void OnEnable()
     {
-        if (isOccupied == true)
-        {
-            card = GetComponentInChildren<Card>();
-            GetGuessCardValue();
-        }
+       GameEvents.OnCardEntered += GetGuessCardValue; 
     }
+
+    void OnDisable()
+    {
+        GameEvents.OnCardEntered -= GetGuessCardValue;
+    }
+
 
     public void GetGuessCardValue()  // get the value from card
     {
+        card = GetComponentInChildren<Card>(); 
+
         if (card != null)
         {
            guessCardValue = card.cardValue;

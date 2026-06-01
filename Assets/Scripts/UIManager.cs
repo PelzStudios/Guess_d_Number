@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-// using UnityEngine.UIElements;
 using System;
+using System.Collections;
 
 /// <summary>
 /// Handles UI text updates and panel switching.
@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     public Image hintArrowUp;
     public Image hintArrowDown;
     
-
 
 
     void Start()
@@ -103,5 +102,29 @@ public class UIManager : MonoBehaviour
     {
         homeBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
         gameOverBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
+    }
+
+    public IEnumerator HintUpArrowSequence()
+    {
+        hintArrowUp.color = Color.green;
+        gameManager.hint = "Go Higher!";
+
+        yield return new WaitForSeconds(2f);
+
+        hintArrowUp.color = Color.white;
+        hintText.text = "";
+
+    }
+
+    public IEnumerator HintDownArrowSequence()
+    {
+        hintArrowDown.color = Color.green;
+        gameManager.hint = "Go Lower!";
+
+        yield return new WaitForSeconds(2f);
+
+        hintArrowDown.color = Color.white;
+        hintText.text = "";
+
     }
 }
