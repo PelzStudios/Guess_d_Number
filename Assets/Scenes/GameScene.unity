@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 67.83118, y: 6}
+  m_AnchoredPosition: {x: 67.831055, y: 6}
   m_SizeDelta: {x: 100, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &45266635
@@ -1672,7 +1672,6 @@ GameObject:
   - component: {fileID: 329449383}
   - component: {fileID: 329449385}
   - component: {fileID: 329449384}
-  - component: {fileID: 329449386}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -1739,24 +1738,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329449382}
   m_CullTransparentMesh: 1
---- !u!114 &329449386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329449382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de78656d7d9308446a17d4c5ca8107c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CardSlots
-  cardSlot1: {fileID: 545420382}
-  cardSlot2: {fileID: 661845289}
-  guessCardValue1: 
-  guessCardValue2: 
-  combinedGuessValue: 
-  GuessValueInt: 0
 --- !u!1 &356742867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,8 +1773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -41.399994}
-  m_SizeDelta: {x: 0.000061035, y: 81.919}
+  m_AnchoredPosition: {x: -2.158493, y: -41.399994}
+  m_SizeDelta: {x: 4.317, y: 81.919}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356742869
 MonoBehaviour:
@@ -2289,8 +2270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 0
-  cardValue: 0
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 383549316}
 --- !u!1 &491214081
@@ -2438,7 +2417,6 @@ GameObject:
   - component: {fileID: 545420381}
   - component: {fileID: 545420380}
   - component: {fileID: 545420382}
-  - component: {fileID: 545420383}
   m_Layer: 5
   m_Name: CardSlot1
   m_TagString: Untagged
@@ -2517,53 +2495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardSlot
   card: {fileID: 0}
   isOccupied: 0
-  guessCardValue: 
---- !u!61 &545420383
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 545420378}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  guessCardNo: 0
 --- !u!1 &559734828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,7 +2720,6 @@ GameObject:
   - component: {fileID: 661845288}
   - component: {fileID: 661845287}
   - component: {fileID: 661845289}
-  - component: {fileID: 661845290}
   m_Layer: 5
   m_Name: CardSlot2
   m_TagString: Untagged
@@ -2867,53 +2798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardSlot
   card: {fileID: 0}
   isOccupied: 0
-  guessCardValue: 
---- !u!61 &661845290
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661845285}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  guessCardNo: 0
 --- !u!1 &669480889
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,8 +2939,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 5
-  cardValue: 5
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 670279719}
 --- !u!114 &670279721
@@ -3240,8 +3123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 6
-  cardValue: 6
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 673952570}
 --- !u!114 &673952574
@@ -3845,8 +3726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 3
-  cardValue: 3
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 730128371}
 --- !u!1 &737630436
@@ -4053,8 +3932,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 7
-  cardValue: 7
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 739627431}
 --- !u!114 &739627435
@@ -4892,10 +4769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   cardObject: {fileID: 0}
-  cardSlot1: {fileID: 0}
-  cardSlot2: {fileID: 0}
+  cardSlots: {fileID: 329449382}
   cardInstance: {fileID: 0}
-  cardInitialPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1143074217
 Transform:
   m_ObjectHideFlags: 0
@@ -5037,8 +4912,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 8
-  cardValue: 8
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1181119881}
 --- !u!114 &1181119885
@@ -5483,7 +5356,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gameState: 0
-  cardSlots: {fileID: 329449386}
+  cardSlots: {fileID: 329449382}
+  cardSlot1: {fileID: 545420382}
+  cardSlot2: {fileID: 661845289}
   randomNumberValue: 0
   possibleAttempts: 7
   currentStreak: 0
@@ -6209,8 +6084,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 4
-  cardValue: 4
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1497723929}
 --- !u!114 &1497723933
@@ -7058,8 +6931,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 2
-  cardValue: 2
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1581450177}
 --- !u!114 &1581450179
@@ -7437,8 +7308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 1
-  cardValue: 1
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1691038391}
 --- !u!1 &1732213378
@@ -7493,8 +7362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 0
-  cardValue: 
-  cardDeck: {fileID: 0}
   isDuplicate: 0
   originalPosition: {fileID: 0}
 --- !u!114 &1732213381
@@ -7798,8 +7665,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardNumber: 9
-  cardValue: 9
-  cardDeck: {fileID: 1849883078}
   isDuplicate: 0
   originalPosition: {fileID: 1817112204}
 --- !u!114 &1817112208

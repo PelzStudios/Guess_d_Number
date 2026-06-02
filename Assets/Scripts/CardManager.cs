@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
 /// Handles card selection logic
@@ -9,18 +10,12 @@ using DG.Tweening;
 public class CardManager : MonoBehaviour
 {
     public GameObject cardObject;  // active card selected
-    public Transform cardSlot1;
-    public Transform cardSlot2;
-    private Stage cardSlots;
+    public GameObject cardSlots;
    
     
     [HideInInspector]
     public GameObject cardInstance;
 
-    void Awake()
-    {
-        cardSlots = FindFirstObjectByType<Stage>();
-    }
 
 /// <summary>
 /// Handles the logic when a card is selected
@@ -28,25 +23,26 @@ public class CardManager : MonoBehaviour
 /// </summary>
     public void HandleCardSelected()  
     {
-        foreach (Transform slot in cardSlots.transform)  // loop through the card slots transforms
+        for (int i =0; i < cardSlots.transform.childCount; i++)  // loop through the card slots transforms
         {
-            CardSlot slotComponent = slot.GetComponent<CardSlot>();
+            CardSlot slot = cardSlots.transform.GetChild(i).GetComponent<CardSlot>();
 
-            if (slotComponent == null) continue;
+            if (!slot) return;
 
-            if ((slot.name == "CardSlot1" || slot.name == "CardSlot2") && !slotComponent.isOccupied)
-            { 
+            if (!slot.isOccupied)
+            {
                 cardInstance = Instantiate(cardObject, cardObject.GetComponent<Card>().originalPosition);  
 
-                MoveToPosition(slot.position);
-
-                cardInstance.transform.SetParent(slot);
+                MoveToPosition(slot.transform.position);
+                
                 cardInstance.transform.localPosition = Vector3.zero;   // ensure its centered properly
 
                 slot.GetComponent<CardSlot>().isOccupied = true;
-                GameEvents.OnCardEntered?.Invoke();
-
+                
                 cardInstance.GetComponent<Card>().isDuplicate = true;
+                cardInstance.transform.SetParent(slot.transform);
+
+                GameEvents.OnCardEntered?.Invoke();
                 break;
             }
         }

@@ -8,8 +8,6 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {   
     public int cardNumber;
-    public string cardValue;
-    public GameObject cardDeck;
     public bool isDuplicate;  // ghost card
 
     public Transform originalPosition;
@@ -19,11 +17,6 @@ public class Card : MonoBehaviour
     void Awake()
     {
         cardManager = FindFirstObjectByType<CardManager>();
-    }
-
-    public void GetCardValue()  // get card value as string and store it
-    {
-        cardValue = cardNumber.ToString(); 
     }
 
 /// <summary>

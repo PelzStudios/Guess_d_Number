@@ -8,27 +8,25 @@ public class CardSlot : MonoBehaviour
 {
     public Card card; 
     public bool isOccupied = false;
-
-    public string guessCardValue;  // string value from card
+    public int guessCardNo;
 
     void OnEnable()
     {
-       GameEvents.OnCardEntered += GetGuessCardValue; 
+       GameEvents.OnCardEntered += GetGuessCardNo; 
     }
 
     void OnDisable()
     {
-        GameEvents.OnCardEntered -= GetGuessCardValue;
+        GameEvents.OnCardEntered -= GetGuessCardNo; 
     }
 
-
-    public void GetGuessCardValue()  // get the value from card
+    public void GetGuessCardNo()
     {
-        card = GetComponentInChildren<Card>(); 
+        card = GetComponentInChildren<Card>();
 
         if (card != null)
         {
-           guessCardValue = card.cardValue;
+            guessCardNo = card.cardNumber;
         }
     }
 }

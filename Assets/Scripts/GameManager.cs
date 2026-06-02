@@ -10,8 +10,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     public GameState gameState;
-    public Stage cardSlots;
-    public int randomNumberValue;  // number to guess (opponent)
+
+    [Header("Card Slot Refs")]
+    public GameObject cardSlots;
+    public CardSlot cardSlot1;
+    public CardSlot cardSlot2;
+
+    [Header("Values")]
+    public int randomNumberValue; 
     public int possibleAttempts = 7;
     public int currentStreak = 0;
     public int bestStreak = 0;
@@ -42,15 +48,18 @@ public class GameManager : MonoBehaviour
         uiManager.RefreshUI();
     }
 
-    public void GetRandomNumberValue()  // generate random number within 1 and 100 for player to guess
+    public void GetRandomNumberValue()  
     {
         randomNumberValue = Random.Range(0, 100);
         Debug.Log("Selecting random number between " + 0 + " and " + 100 + " " + "Random Number is: " + randomNumberValue);
     }
 
-    public void GetCombinedGuessValue()  // get player's guess value
+    public void GetCombinedGuessValue()  
     {
-        guessValue = cardSlots.GuessValueInt;
+        if (cardSlot1 && cardSlot2 != null)
+        {
+            guessValue = (cardSlot1.guessCardNo * 10) + cardSlot2.guessCardNo;
+        }      
     }
 
 /// <summary>
@@ -82,6 +91,7 @@ public class GameManager : MonoBehaviour
         ShowHint();
 
         uiManager.RefreshUI();
+        cardManager.ResetCardSlots();
     }
 
 /// <summary>
