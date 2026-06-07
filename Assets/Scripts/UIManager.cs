@@ -95,13 +95,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentStreakText()
     {
-        currentStreakText.text = $"Current Streak: {gameManager.currentStreak}";
+        currentStreakText.text = $"{gameManager.currentStreak}";
     }
 
     public void UpdateBestStreakText()
     {
         homeBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
-        gameOverBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
+        gameOverBestStreakText.text = $"{gameManager.bestStreak}";
     }
 
     public IEnumerator HintUpArrowSequence()
