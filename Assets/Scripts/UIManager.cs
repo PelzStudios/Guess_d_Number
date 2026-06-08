@@ -16,8 +16,18 @@ public class UIManager : MonoBehaviour
     public TMP_Text randomNumberText;
     public TMP_Text attemptsLeftText;
     public TMP_Text hintText;
-    public TMP_Text currentStreakText;
+
+    [Header("End Screen Opponent Card Number References")]
+    public TMP_Text winOpponentNumberText;
+    public TMP_Text gameOverOpponentNumberText;
+
+    [Header("Current Streak Text References")]
+    public TMP_Text winCurrentStreakText;
+    public TMP_Text gameOverCurrentStreakText;
+
+    [Header("Best Streak Text References")]
     public TMP_Text homeBestStreakText;
+    public TMP_Text winBestStreakText;
     public TMP_Text gameOverBestStreakText;
     
    [Header("Panels")]
@@ -35,6 +45,16 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         ShowHomePanel();
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnSessionEnded += ShowOpponentNumberAfterSession;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnSessionEnded -= ShowOpponentNumberAfterSession;
     }
 
     public void ShowHomePanel()
@@ -95,13 +115,21 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentStreakText()
     {
-        currentStreakText.text = $"{gameManager.currentStreak}";
+        winCurrentStreakText.text = $"{gameManager.currentStreak}";
+        gameOverCurrentStreakText.text = $"{gameManager.currentStreak}";
     }
 
     public void UpdateBestStreakText()
     {
         homeBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
+        winBestStreakText.text = $"{gameManager.bestStreak}";
         gameOverBestStreakText.text = $"{gameManager.bestStreak}";
+    }
+
+    public void ShowOpponentNumberAfterSession()
+    {
+        winOpponentNumberText.text = $"{gameManager.randomNumberValue}";
+        gameOverOpponentNumberText.text = $"{gameManager.randomNumberValue}";
     }
 
     public IEnumerator HintUpArrowSequence()

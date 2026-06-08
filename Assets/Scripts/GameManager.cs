@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GameOver;
         uiManager.ShowGameOverPanel();
         currentStreak = 0;
+        GameEvents.OnSessionEnded?.Invoke();
     }
 
 /// <summary>
@@ -166,6 +167,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         uiManager.ShowWinPanel();
+        GameEvents.OnSessionEnded?.Invoke();
     }
     
 /// <summary>
