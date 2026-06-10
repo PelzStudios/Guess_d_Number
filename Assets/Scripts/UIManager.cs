@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Collections;
+using DG.Tweening;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Handles UI text updates and panel switching.
@@ -39,6 +42,11 @@ public class UIManager : MonoBehaviour
     [Header("Panels")]
     public Image hintArrowUp;
     public Image hintArrowDown;
+
+    [Header("Panel Elements")]
+    public List<GameObject> homePanelElements = new List<GameObject>();
+    public List<GameObject> winPanelElements = new List<GameObject>();
+    public List<GameObject> gameOverPanelElements = new List<GameObject>();
     
 
 
@@ -59,26 +67,35 @@ public class UIManager : MonoBehaviour
 
     public void ShowHomePanel()
     {
-        homePanel.SetActive(true);
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
+        // PopUpPanel(homePanel);
+        homePanel.SetActive(true);
+
+        KillElements(homePanelElements);
+        StartCoroutine(PopUpSequence(homePanelElements));
     }
 
     public void ShowGamePanel()
     {
         homePanel.SetActive(false);
-        gamePanel.SetActive(true);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
+        // PopUpPanel(gamePanel);
+        gamePanel.SetActive(true);
     }
 
     public void ShowGameOverPanel()
     {
         homePanel.SetActive(false);
         gamePanel.SetActive(false);
-        gameOverPanel.SetActive(true);
         winPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        // PopUpPanel(gameOverPanel);
+
+        KillElements(gameOverPanelElements);
+        StartCoroutine(PopUpSequence(gameOverPanelElements));
     }
 
     public void ShowWinPanel()
@@ -86,7 +103,11 @@ public class UIManager : MonoBehaviour
         homePanel.SetActive(false);
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        // PopUpPanel(winPanel);
         winPanel.SetActive(true);
+
+        KillElements(winPanelElements);
+        StartCoroutine(PopUpSequence(winPanelElements));
     }
 
     public void UpdateRandomNumberText()
@@ -154,5 +175,44 @@ public class UIManager : MonoBehaviour
         hintArrowDown.color = Color.white;
         hintText.text = "";
 
+    }
+
+    public void PopUpPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+        panel.transform.localScale = Vector3.zero;
+        panel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+    }
+
+    public Tween PopUpElement(GameObject uiElement)
+    {
+        uiElement.SetActive(true);
+        Vector3 originalScale = uiElement.transform.localScale;  // storing its original scale
+        uiElement.transform.localScale = Vector3.zero;
+        Tween tween = uiElement.transform.DOScale(originalScale, 0.13f).SetEase(Ease.OutBack);
+        return tween;
+    }
+
+    public void KillElements(List<GameObject> uiElements)
+    {
+        foreach (GameObject element in uiElements)
+        {
+            element.SetActive(false);
+        }
+    }
+
+    public IEnumerator PopUpSequence(List<GameObject> elements)
+    {
+        foreach (GameObject element in elements)
+        {
+            Tween mytween = PopUpElement(element);
+            yield return mytween.WaitForCompletion(); 
+             
+        }
+    }
+
+    public void ButtonTapBounce()
+    {
+        transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f, 1, 1);
     }
 }
