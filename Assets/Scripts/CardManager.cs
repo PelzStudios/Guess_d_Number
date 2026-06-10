@@ -11,12 +11,15 @@ using System.Collections.Generic;
 
 public class CardManager : MonoBehaviour
 {
+    [Header("Card Items")]
     public GameObject cardObject;  // active card selected
     public GameObject cardSlots;
-
-    public Transform deckMidPoint;
+    public GameObject opponentCard;
     public List<GameObject> cards = new List<GameObject>();
-   
+
+    [Header("Anchor Points")]
+    public Transform deckMidPoint;
+    public Transform deckOffsetPoint;
     
     [HideInInspector]
     public GameObject cardInstance;
@@ -68,17 +71,36 @@ public class CardManager : MonoBehaviour
         card.transform.DOPunchScale(newScale, 0.1f, 1, 1);
     }
 
-    // public void NewGameSequence()
-    // {
-    //     foreach (GameObject card in cards)
-    //     {
-    //         Vector3 originalPosition = card.transform.position;
+    public void NewGameCardSequence()
+    {
+        if (opponentCard == null || deckMidPoint == null || deckOffsetPoint == null) return;
 
-    //         card.transform.position = deckMidPoint.position;
+        Vector3 oppCardPosition = opponentCard.transform.position;
+        Vector3 oppCardOffset = new Vector3 (oppCardPosition.x, oppCardPosition.y + 700, oppCardPosition.z);
 
-    //         yield return WaitForSeconds(2f);
-    //     }
-    // }
+        Vector3 deckPosition = deckMidPoint.transform.position;
+        Vector3 deckOffset = deckOffsetPoint.transform.position;
+
+        opponentCard.transform.position = oppCardOffset;
+        
+        foreach (GameObject card in cards)
+        {
+            Vector3 originalPosition = card.transform.position;
+
+            card.transform.position = deckOffset;
+            card.transform.DOMove(deckPosition, 0.3f)
+              .SetEase(Ease.OutBack);
+
+            card.transform.DOMove(originalPosition, 0.3f)
+              .SetDelay(0.8f)
+              .SetEase(Ease.OutBack);
+        }
+
+        opponentCard.transform.DOMove(oppCardPosition, 0.3f)
+          .SetDelay(1.7f)
+          .SetEase(Ease.OutBack);
+          
+    }
 
 /// <summary>
 /// Clears card slots for new session

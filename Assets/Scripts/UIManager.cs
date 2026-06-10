@@ -14,6 +14,7 @@ using Unity.VisualScripting;
 public class UIManager : MonoBehaviour
 {
     public GameManager gameManager;
+    public CardManager cardManager;
 
     [Header("Text References")]
     public TMP_Text randomNumberText;
@@ -70,7 +71,6 @@ public class UIManager : MonoBehaviour
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
-        // PopUpPanel(homePanel);
         homePanel.SetActive(true);
 
         KillElements(homePanelElements);
@@ -82,8 +82,8 @@ public class UIManager : MonoBehaviour
         homePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
-        // PopUpPanel(gamePanel);
         gamePanel.SetActive(true);
+        cardManager.NewGameCardSequence();
     }
 
     public void ShowGameOverPanel()
@@ -92,7 +92,6 @@ public class UIManager : MonoBehaviour
         gamePanel.SetActive(false);
         winPanel.SetActive(false);
         gameOverPanel.SetActive(true);
-        // PopUpPanel(gameOverPanel);
 
         KillElements(gameOverPanelElements);
         StartCoroutine(PopUpSequence(gameOverPanelElements));
@@ -103,7 +102,6 @@ public class UIManager : MonoBehaviour
         homePanel.SetActive(false);
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(false);
-        // PopUpPanel(winPanel);
         winPanel.SetActive(true);
 
         KillElements(winPanelElements);
@@ -189,7 +187,7 @@ public class UIManager : MonoBehaviour
         uiElement.SetActive(true);
         Vector3 originalScale = uiElement.transform.localScale;  // storing its original scale
         uiElement.transform.localScale = Vector3.zero;
-        Tween tween = uiElement.transform.DOScale(originalScale, 0.13f).SetEase(Ease.OutBack);
+        Tween tween = uiElement.transform.DOScale(originalScale, 0.12f).SetEase(Ease.OutBack);
         return tween;
     }
 
