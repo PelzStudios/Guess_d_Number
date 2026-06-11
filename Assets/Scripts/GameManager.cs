@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private CardManager cardManager;
     private UIManager uiManager;
     private int guessValue;
+    private bool isSequenceRunning = false;
 
 
     void Awake()
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour
 /// </summary>
     public void CheckGuess()
     {
+        if (isSequenceRunning) return;
+
         foreach (Transform slot in cardSlots.transform)  // to prevent validating empty slots
         {
             CardSlot slotComponent = slot.GetComponent<CardSlot>();
@@ -128,9 +131,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameState = GameState.GameOver;
+
+        GameEvents.OnSessionEnded?.Invoke();
+        GameEvents.OnGameOver?.Invoke();
+
         uiManager.ShowGameOverPanel();
         currentStreak = 0;
-        GameEvents.OnSessionEnded?.Invoke();
+        SaveCurrentStreakData();
+        
     }
 
 /// <summary>
@@ -151,6 +159,8 @@ public class GameManager : MonoBehaviour
 /// </summary>
     private IEnumerator WinSequence()
     {
+        isSequenceRunning = true;
+
         gameState = GameState.Win;
 
         currentStreak++;
@@ -162,12 +172,16 @@ public class GameManager : MonoBehaviour
             SaveBestStreakData();
         }
 
-        uiManager.UpdateRandomNumberText();
+        GameEvents.OnSessionEnded?.Invoke();
 
-        yield return new WaitForSeconds(2f);
+        uiManager.CardRevealSequence();
+
+        yield return new WaitForSeconds(2.5f);
 
         uiManager.ShowWinPanel();
-        GameEvents.OnSessionEnded?.Invoke();
+        GameEvents.OnGameWon?.Invoke();
+
+        isSequenceRunning = false;
     }
     
 /// <summary>

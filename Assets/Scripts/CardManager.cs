@@ -40,6 +40,8 @@ public class CardManager : MonoBehaviour
             if (!slot.isOccupied)
             {
                 CardTapBounce(cardObject);
+                GameEvents.OnCardTapped?.Invoke();
+                
                 cardInstance = Instantiate(cardObject, cardObject.GetComponent<Card>().originalPosition);  
 
                 MoveToPosition(slot.transform.position);
@@ -71,6 +73,9 @@ public class CardManager : MonoBehaviour
         card.transform.DOPunchScale(newScale, 0.1f, 1, 1);
     }
 
+/// <summary>
+/// Card animation sequence at the start of every new game
+/// </summary>
     public void NewGameCardSequence()
     {
         if (opponentCard == null || deckMidPoint == null || deckOffsetPoint == null) return;
@@ -97,7 +102,7 @@ public class CardManager : MonoBehaviour
         }
 
         opponentCard.transform.DOMove(oppCardPosition, 0.3f)
-          .SetDelay(1.7f)
+          .SetDelay(1.5f)
           .SetEase(Ease.OutBack);
           
     }

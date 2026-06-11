@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Managers")]
     public GameManager gameManager;
     public CardManager cardManager;
 
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject winPanel;
 
-    [Header("Panels")]
+    [Header("Arrows")]
     public Image hintArrowUp;
     public Image hintArrowDown;
 
@@ -140,7 +141,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateBestStreakText()
     {
-        homeBestStreakText.text = $"Best Streak: {gameManager.bestStreak}";
+        homeBestStreakText.text = $"{gameManager.bestStreak}";
         winBestStreakText.text = $"{gameManager.bestStreak}";
         gameOverBestStreakText.text = $"{gameManager.bestStreak}";
     }
@@ -153,7 +154,8 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator HintUpArrowSequence()
     {
-        hintArrowUp.color = Color.green;
+        hintArrowUp.color = Color.red;
+        hintArrowUp.transform.DOPunchScale(hintArrowUp.transform.localScale * 1.3f, 0.3f, 1, 1f);
         gameManager.hint = "Go Higher!";
 
         yield return new WaitForSeconds(2f);
@@ -165,7 +167,8 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator HintDownArrowSequence()
     {
-        hintArrowDown.color = Color.green;
+        hintArrowDown.color = Color.red;
+        hintArrowDown.transform.DOPunchScale(hintArrowDown.transform.localScale * 1.3f, 0.3f, 1, 1f);
         gameManager.hint = "Go Lower!";
 
         yield return new WaitForSeconds(2f);
@@ -212,5 +215,14 @@ public class UIManager : MonoBehaviour
     public void ButtonTapBounce()
     {
         transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.1f, 1, 1);
+    }
+
+    public void CardRevealSequence()
+    {
+        cardManager.opponentCard.transform.DOScaleX(0f, 0.2f).OnComplete(() =>
+        {
+            UpdateRandomNumberText();
+            cardManager.opponentCard.transform.DOScaleX(1f, 0.2f);
+        });
     }
 }
